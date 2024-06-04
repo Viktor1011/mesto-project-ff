@@ -1,68 +1,54 @@
-const buttonEditProfile = document.querySelector('.profile__edit-button');
-const buttonAdd = document.querySelector('.profile__add-button');
+
 const popUpProfile = document.querySelector('.popup_type_edit');
 const popUpCard = document.querySelector('.popup_type_new-card');
-const cardImage = document.querySelectorAll('.card__image');
 const popUpImage = document.querySelector('.popup_type_image');
-const popup = document.querySelectorAll('.popup');
-
 popUpProfile.classList.add('popup_is-animated');
 popUpCard.classList.add('popup_is-animated');
 popUpImage.classList.add('popup_is-animated');
 
+//----------------------Работа наш ошибками
 
-// openModal
+//----создаем openPopup
 
-export function openModal(buttonEditProfile, buttonAdd) {
-    buttonEditProfile.addEventListener('click', function () {
-        popUpProfile.classList.add('popup_is-opened');
-    })
-    
-    buttonAdd.addEventListener('click', function () {
-        popUpCard.classList.add('popup_is-opened');
-    })
-
-    document.addEventListener('keydown', closeModalEsc)
+export function openPopup(popup) {
+    popup.classList.add('popup_is-opened');
+    document.addEventListener('keydown', closeByEscape);
+    popup.addEventListener('click', closeByOverlay);
 }
 
-buttonEditProfile.addEventListener('click', function () {
-    popUpProfile.classList.add('popup_is-opened');
-})
+//----создаем closePopup
 
-buttonAdd.addEventListener('click', function () {
-    popUpCard.classList.add('popup_is-opened');
-})
-
-
-// closeModal
-
-const buttonClose = document.querySelectorAll('.popup__close')
-
-export function closeModal() {
-    popUpCard.classList.remove('popup_is-opened');
-    popUpProfile.classList.remove('popup_is-opened');
-    popUpImage.classList.remove('popup_is-opened');
+export function closePopup(popup) {
+    popup.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown', closeByEscape);
+    popup.removeEventListener('click', closeByOverlay);
 }
 
-document.addEventListener('keydown', function(evt) {
-        if (evt.key === 'Escape') {
-            closeModal();
-        }
-        document.removeEventListener('keydown', function () {
-            if (evt.key === 'Escape') {
-                closeModal();
-            }
-        })
-    })
+//----закрываем через Esc
 
-    popup.forEach((popup) => {
-    popup.addEventListener('click', evt => {
-        if(evt.target === evt.currentTarget) {
-            closeModal();
-        }
+export function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closePopup(openedPopup);
+    }
+}  
+
+//----закрываем через overlay
+
+export function closeByOverlay(evt) {
+    if (evt.target === evt.currentTarget) {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closePopup(openedPopup);
+    }
+}
+
+//----
+const buttonsClose = document.querySelectorAll('.popup__close')
+
+buttonsClose.forEach((buttonsClose) => {
+    buttonsClose.addEventListener('click', () => {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closePopup(openedPopup);
     })
 })
 
-buttonClose.forEach((buttonClose) => {
-    buttonClose.addEventListener('click', closeModal)
-})
