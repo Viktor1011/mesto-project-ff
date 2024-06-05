@@ -37,18 +37,6 @@ export function closeByEscape(evt) {
 
 export function closeByOverlay(evt) {
     if (evt.target === evt.currentTarget) {
-        const openedPopup = document.querySelector('.popup_is-opened');
-        closePopup(openedPopup);
-    }
+        closePopup(evt.target);
+    } 
 }
-
-//----
-const buttonsClose = document.querySelectorAll('.popup__close')
-
-buttonsClose.forEach((buttonsClose) => {
-    buttonsClose.addEventListener('click', () => {
-        const openedPopup = document.querySelector('.popup_is-opened');
-        closePopup(openedPopup);
-    })
-})
-
