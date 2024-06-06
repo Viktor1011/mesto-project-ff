@@ -28,7 +28,11 @@ const popupImgSrc = document.querySelector('.popup__image');
 const popupImgCaption = document.querySelector('.popup__caption');
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
-const buttonsClose = document.querySelectorAll('.popup__close')
+const buttonsClose = document.querySelectorAll('.popup__close');
+const popUpImage = document.querySelector('.popup_type_image');
+popUpProfile.classList.add('popup_is-animated');
+popUpCard.classList.add('popup_is-animated');
+popUpImage.classList.add('popup_is-animated');
 
 // Обработчик «отправки» формы
 function handleFormSubmit(evt) {

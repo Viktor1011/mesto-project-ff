@@ -1,11 +1,3 @@
-
-const popUpProfile = document.querySelector('.popup_type_edit');
-const popUpCard = document.querySelector('.popup_type_new-card');
-const popUpImage = document.querySelector('.popup_type_image');
-popUpProfile.classList.add('popup_is-animated');
-popUpCard.classList.add('popup_is-animated');
-popUpImage.classList.add('popup_is-animated');
-
 //----------------------Работа наш ошибками
 
 //----создаем openPopup
