@@ -2,7 +2,7 @@ import { deleteCardPayload, putLikePayload, removeLikePayload } from "./api";
 
 const cardTemplate = document.querySelector('#card-template').content;
 
-export function createCard(card, deleteCard, likeCard, popupCardImg, currentUser) {
+export function createCard(card, deleteCard, likeCard, handleImageClick, currentUser) {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
     const cardImage = cardElement.querySelector('.card__image');
     const deleteButton = cardElement.querySelector('.card__delete-button');
@@ -19,6 +19,13 @@ export function createCard(card, deleteCard, likeCard, popupCardImg, currentUser
         deleteButton.classList.add('displaynone');
     };
 
+    const cardLikeButton = cardElement.querySelector('.card__like-button');
+    for (let i = 0; i < card.likes.length; i++) {
+        if (card.likes[i]._id === currentUser) {
+            cardLikeButton.classList.add('card__like-button_is-active');
+        }
+    }
+
     cardElement.querySelector('.card__title').textContent = card.name;
     
     deleteButton.addEventListener('click', function() {
@@ -30,7 +37,7 @@ export function createCard(card, deleteCard, likeCard, popupCardImg, currentUser
     });
 
     cardImage.addEventListener('click', function() {
-        popupCardImg(card);
+        handleImageClick(card);
     })
 
 
