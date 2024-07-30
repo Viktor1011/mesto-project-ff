@@ -65,8 +65,9 @@ avatarForm.addEventListener('submit', handleChangeAva);
 function handleCardAdd(evt) {
     evt.preventDefault();
 
-    renderLoading(true, popupSubmitButton, 'Сохранить', 'Сохранение...');
-    console.log(popupSubmitButton.textContent)
+    const submitButton = evt.submitter;
+
+    renderLoading(true, submitButton, 'Сохранить', 'Сохранение...');
 
     const newCardInputInfo = {
         "name": cardTitleInput.value,
@@ -78,7 +79,7 @@ function handleCardAdd(evt) {
         const card = data;
         const currentUser = card.owner._id;
         const cardAddToArray = createCard(card, deleteCard, likeCard, handleImageClick, currentUser);
-        //renderLoading(false, popupSubmitButton, 'Сохранить', 'Сохранение...')
+        renderLoading(false, popupSubmitButton, 'Сохранить', 'Сохранение...')
         //popupSubmitButton.classList.remove('.popup__button_inactive');
         //popupSubmitButton.textContent = "Сохранить";
         placesList.prepend(cardAddToArray);
@@ -87,29 +88,31 @@ function handleCardAdd(evt) {
     })
     .catch(console.error)
     .finally(() => {
-        renderLoading(false, popupSubmitButton, 'Сохранить', 'Сохранение...')
+        renderLoading(false, submitButton, 'Сохранить', 'Сохранение...')
     })
 }
 
 function handleChangeAva(evt) {
     evt.preventDefault();
+    const submitButton = evt.submitter;
+
+    renderLoading(true, submitButton, 'Сохранить', 'Сохранение...');
+
     const newUserAva = {
         "avatar": avaLinkInput.value
     }; 
-
-    popupSubmitButton.textContent = "Сохранение...";
-    popupSubmitButton.classList.add('.popup__button_inactive');
 
     changeUserAva(newUserAva)
     .then((data) => {
         profileImage.style.backgroundImage = (`url(${data.avatar})`);
         popupSubmitButton.classList.remove('.popup__button_inactive');
+        //renderLoading(false, submitButton, 'Сохранить', 'Сохранение...');
         closePopup(popUpAva);
         avatarForm.reset();
     })
     .catch(console.error)
     .finally(() => {
-        popupSubmitButton.textContent = "Сохранить";
+        renderLoading(false, submitButton, 'Сохранить', 'Сохранение...');
     })
 }
 
@@ -136,8 +139,10 @@ buttonEditProfile.addEventListener("click", () => {
 function handleProfileFormSubmit (evt) {
     evt.preventDefault();
 
-    popupSubmitButton.textContent = "Сохранение...";
-    popupSubmitButton.classList.add('.popup__button_inactive');
+    const submitButton = evt.submitter;
+    console.log(evt.submitter)
+
+    renderLoading(true, submitButton, 'Сохранить', 'Сохранение...');
 
     const userInfoInput = {
         "name": nameInput.value,
@@ -147,12 +152,12 @@ function handleProfileFormSubmit (evt) {
     .then((data) => {
         profileTitle.textContent = data.name;
         profileDescription.textContent = data.about;
-        popupSubmitButton.classList.remove('.popup__button_inactive');
+        renderLoading(true, submitButton, 'Сохранить', 'Сохранение...');
         closePopup(popUpProfile);
     })
     .catch(console.error)
     .finally(() => {
-        popupSubmitButton.textContent = "Сохранить";
+        renderLoading(false, submitButton, 'Сохранить', 'Сохранение...');
     })
 }
 
