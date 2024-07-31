@@ -11,7 +11,7 @@ const showInputError = (formElement, inputElement, errorMessage, validationConfi
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(validationConfig.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
+  errorElement.classList.add(validationConfig.errorClass); validationConfig.errorClass
 };
 
 const hideInputError = (formElement, inputElement, validationConfig) => {

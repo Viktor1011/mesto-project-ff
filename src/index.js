@@ -1,4 +1,5 @@
-import '../src/index.css'
+//import '../src/index.css';
+import './/index.css';
 import { createCard, deleteCard, likeCard } from './components/card.js';
 import { openPopup, closePopup, closeByEscape, closeByOverlay } from './components/modal.js';
 import { enableValidation, clearValidation, validationConfig } from './components/validity.js';
@@ -26,7 +27,7 @@ const popUpImage = document.querySelector('.popup_type_image');
 const cardTitleInput = document.querySelector('.popup__input_type_card-name');
 const cardLinkInput = document.querySelector('.popup__input_type_url');
 const profileImage = document.querySelector('.profile__image');
-const popupSubmitButton = document.querySelector('.popup__button'); 
+//const profileSubmitButton = document.querySelector('.popup__button'); 
 const avaLinkInput = document.querySelector('.popup__input_type_ava');
 popUpProfile.classList.add('popup_is-animated');
 popUpCard.classList.add('popup_is-animated');
@@ -79,9 +80,6 @@ function handleCardAdd(evt) {
         const card = data;
         const currentUser = card.owner._id;
         const cardAddToArray = createCard(card, deleteCard, likeCard, handleImageClick, currentUser);
-        renderLoading(false, popupSubmitButton, 'Сохранить', 'Сохранение...')
-        //popupSubmitButton.classList.remove('.popup__button_inactive');
-        //popupSubmitButton.textContent = "Сохранить";
         placesList.prepend(cardAddToArray);
         closePopup(popUpCard);
         cardForm.reset();
@@ -105,8 +103,6 @@ function handleChangeAva(evt) {
     changeUserAva(newUserAva)
     .then((data) => {
         profileImage.style.backgroundImage = (`url(${data.avatar})`);
-        popupSubmitButton.classList.remove('.popup__button_inactive');
-        //renderLoading(false, submitButton, 'Сохранить', 'Сохранение...');
         closePopup(popUpAva);
         avatarForm.reset();
     })
@@ -140,7 +136,6 @@ function handleProfileFormSubmit (evt) {
     evt.preventDefault();
 
     const submitButton = evt.submitter;
-    console.log(evt.submitter)
 
     renderLoading(true, submitButton, 'Сохранить', 'Сохранение...');
 
@@ -152,7 +147,6 @@ function handleProfileFormSubmit (evt) {
     .then((data) => {
         profileTitle.textContent = data.name;
         profileDescription.textContent = data.about;
-        renderLoading(true, submitButton, 'Сохранить', 'Сохранение...');
         closePopup(popUpProfile);
     })
     .catch(console.error)
